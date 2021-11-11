@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <style>
+      h1 {
+    font-size: 30px;
+    line-height: 46px;
+    color: #1e2326;
+    text-align: center;
+}
+      ul {
+        text-align: center;
+      }
+      a {
+        text-align: center;
+      }
+      div {
+        
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Instructions for creating a project
+    </h1>
+    <ul>
+      <div>Download below file to follow the instructions</div>
+      <a
+        [href]="sourcePath"
+        [download]="fileName"
+        [attr.disabled]="dwld.busy"
+        #dwld="wmDownload"
+      >
+        Download Instructions
+      </a>
+      <div>Click below to create new project</div>
+      <a class="nav-item nav-link" routerLink="/create">Create New Project</a>
+    </ul>
+  </body>
+</html>

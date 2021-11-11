@@ -1,0 +1,36 @@
+<div class="col-md-6 offset-md-3 mt-5">
+  <div class="card">
+    <h4 class="card-header">Edit Project Details</h4>   
+    <div class="card-body">
+      <form [formGroup]="editProject" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Application Name</label>
+          <input type="text" formControlName="name" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>function Name</label>
+          <input type="text" formControlName="funcName" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>function Id</label>
+          <input type="text" formControlName="funcId" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Version</label>
+          <input type="text" formControlName="version" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Namespace</label>
+            <input type="text" formControlName="namespace" class="form-control" />
+          </div>
+        <button [disabled]="loading" class="btn btn-primary">
+          <span
+            *ngIf="loading"
+            class="spinner-border spinner-border-sm mr-1"
+          ></span>
+          Save
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

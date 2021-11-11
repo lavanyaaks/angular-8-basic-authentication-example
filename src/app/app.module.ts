@@ -11,19 +11,35 @@ import { appRoutingModule } from './app.routing';
 
 import { BasicAuthInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
-import { LoginComponent } from './login';
+import { LoginComponent } from './login';;
+import { CreateComponent } from './create/create.component'
+import { FormsModule } from '@angular/forms';
+;
+import { DeployComponent } from './deploy/deploy.component'
+;
+import { CreateNewProjectComponent } from './create-new-project/create-new-project.component'
+import { DownloadDirective } from './download.directive';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
     imports: [
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
-        appRoutingModule
+        appRoutingModule,
+        FormsModule
     ],
     declarations: [
         AppComponent,
         HomeComponent,
-        LoginComponent
+        LoginComponent,
+        CreateComponent
+,
+        DeployComponent
+,
+        CreateNewProjectComponent,
+        DownloadDirective ,  
+        EditComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },

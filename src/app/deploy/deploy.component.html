@@ -1,0 +1,33 @@
+<h1 class="page_heading">Instructions for Deleting Project</h1>
+<ul>
+  <li>Instructions for create an funcApp</li>
+  <li>List of running projects</li>
+</ul>
+<div class="container">
+  <table class="table table-bordered mt-3">
+    <thead class="thead-light">
+      <tr>
+        <th>Sr.No</th>
+        <th>Name</th>
+        <th>Delete Project</th>
+        <th>Modify Project</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of row; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.Name }}</td>
+        <td>
+          <button (click)="deleteRow(i)" class="btn btn-success">
+            Remove Project
+          </button>
+        </td>
+        <td>
+            <button (click)="editRow()" class="btn btn-success">
+              Edit Project
+            </button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
