@@ -7,6 +7,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./deploy.component.less']
 })
 export class DeployComponent implements OnInit {
+
+  sourcePath =
+  "https://wiki.ith.intel.com/display/hdmtdiagspxie/2DACE+R5-+Project+setup+document?preview=%2F1983243378%2F1983243382%2F2dace-code+containers+Manual.docx";
+   fileName = "sample.pdf";
+   
   constructor(private router: Router) { }
 
   ngOnInit() {

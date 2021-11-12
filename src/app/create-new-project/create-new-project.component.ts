@@ -16,6 +16,13 @@ export class CreateNewProjectComponent implements OnInit {
   returnUrl: string;
   error = '';
 
+  //Project type:
+  Type: any = ['C++', 'Python', '.NET']
+
+  ideExtn: any =['Visual Studio Code', 'Docker file']
+
+
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -36,10 +43,39 @@ export class CreateNewProjectComponent implements OnInit {
       nspace: ['', Validators.required],
       version: ['', Validators.required],
       mininstance:['', Validators.required],
+      description:['', Validators.required],
+      projectType:['',Validators.required],
+      projectExt:['', Validators.required],
   });
 
 
   }
+
+  changeType(e) {
+    console.log(e.value)
+    this.projectType.setValue(e.target.value, {
+      onlySelf: true
+    })
+  }
+
+  changeExtn(e) {
+    console.log(e.value)
+    this.projectExt.setValue(e.target.value, {
+      onlySelf: true
+    })
+  }
+
+  get projectExt() {
+    return this.createProject.get('projectExt');
+  }
+
+
+
+  get projectType() {
+    return this.createProject.get('projectType');
+  }
+
+
 
   get f() { return this.createProject.controls; }
 
@@ -47,6 +83,11 @@ export class CreateNewProjectComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
+    if (!this.createProject.valid) {
+      return false;
+    } else {
+      alert(JSON.stringify(this.createProject.value))
+    }
    
 }
 

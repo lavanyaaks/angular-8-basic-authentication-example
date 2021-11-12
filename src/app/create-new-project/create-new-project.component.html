@@ -5,97 +5,57 @@
       <form [formGroup]="createProject" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="name">Application Name</label>
-          <input
-            type="text"
-            formControlName="name"
-            class="form-control"
-            placeholder="Unique project name"
-            [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
-          />
+          <input type="text" formControlName="name" class="form-control" placeholder="Unique project name"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
           <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
             <div *ngIf="f.name.errors.required">Application Name is required</div>
           </div>
         </div>
         <div class="form-group">
-          <label for="fname">function Name</label>
-          <input
-            type="text"
-            formControlName="fname"
-            class="form-control"
-            placeholder="Unique function name"
-            [ngClass]="{ 'is-invalid': submitted && f.fname.errors }"
-          />
-          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-            <div *ngIf="f.fname.errors.required">Function name is required</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="fid">function Id</label>
-          <input
-            type="text"
-            formControlName="fid"
-            class="form-control"
-            placeholder="Unique function Id"
-            [ngClass]="{ 'is-invalid': submitted && f.fid.errors }"
-          />
-          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-            <div *ngIf="f.fid.errors.required">Function Id is required</div>
-          </div>
-        </div>
-        <div class="form-group">
           <label for="nspace">Namespace</label>
-          <input
-            type="text"
-            formControlName="nspace"
-            class="form-control"
-            placeholder="Unique Namesapce name"
-            [ngClass]="{ 'is-invalid': submitted && f.nspace.errors }"
-          />
+          <input type="text" formControlName="nspace" class="form-control" placeholder="Unique Namesapce name"
+            [ngClass]="{ 'is-invalid': submitted && f.nspace.errors }" />
           <div *ngIf="submitted && f.nspace.errors" class="invalid-feedback">
             <div *ngIf="f.nspace.errors.required">Namespace is required</div>
           </div>
         </div>
         <div class="form-group">
-          <label for="version">Version</label>
-          <input
-            type="text"
-            formControlName="version"
-            class="form-control"
-            placeholder="Unique Version"
-            [ngClass]="{ 'is-invalid': submitted && f.version.errors }"
-          />
-          <div *ngIf="submitted && f.version.errors" class="invalid-feedback">
-            <div *ngIf="f.version.errors.required">Version is required</div>
+          <label for="description">Project Description</label>
+          <input type="text" formControlName="description" class="form-control" placeholder="Project Description"
+            [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
+          <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+            <div *ngIf="f.description.errors.required">Project Description is required</div>
           </div>
         </div>
         <div class="form-group">
-          <label for="mininstance">Minimum Instances</label>
-          <input
-            type="text"
-            formControlName="mininstance"
-            class="form-control"
-            placeholder="Unique number for instances"
-            [ngClass]="{ 'is-invalid': submitted && f.mininstance.errors }"
-          />
-          <div
-            *ngIf="submitted && f.mininstance.errors"
-            class="invalid-feedback"
-          >
-            <div *ngIf="f.mininstance.errors.required">
-              Min instances is required
-            </div>
+          <label for="projectType">Project Type</label>
+          <select class="custom-select" (change)="changeType($event)" formControlName="projectType"
+            [ngClass]="{ 'is-invalid': submitted && f.projectType.errors }">
+            <option value="">Select your project type</option>
+            <option *ngFor="let type of Type" [ngValue]="type">
+              {{ type }}
+            </option>
+          </select>
+          <div *ngIf="submitted && f.projectType.errors" class="invalid-feedback">
+            <div *ngIf="f.projectType.errors.required">Project type is required</div>
           </div>
         </div>
-        <button [disabled]="loading" class="btn btn-primary">
-          <span
-            *ngIf="loading"
-            class="spinner-border spinner-border-sm mr-1"
-          ></span>
+        <div class="form-group">
+          <label for="projectExt">Project Extension</label>
+          <select class="custom-select" (change)="changeExtn($event)" formControlName="projectExt"
+            [ngClass]="{ 'is-invalid': submitted && f.projectExt.errors }">
+            <option value="">Select your extension type</option>
+            <option *ngFor="let extn of ideExtn" [ngValue]="extn">
+              {{ extn }}
+            </option>
+          </select>
+          <div *ngIf="submitted && f.projectExt.errors" class="invalid-feedback">
+            <div *ngIf="f.projectExt.errors.required">Project Extenion is required</div>
+          </div>
+        </div>
+        <button  type ="submit" class="btn btn-primary">
           Create
         </button>
-        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
-          {{ error }}
-        </div>
       </form>
     </div>
   </div>
