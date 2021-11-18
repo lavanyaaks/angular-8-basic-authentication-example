@@ -1,62 +1,79 @@
-<html>
-
-<head>
-  <style>
-    h1 {
-      font-size: 30px;
-      line-height: 46px;
-      color: #1e2326;
-      text-align: center;
-    }
-
-    ul {
-      text-align: center;
-    }
-
-    a {
-      text-align: center;
-    }
-
-    div {
-
-      text-align: center;
-    }
-  </style>
-</head>
-
-<body>
-  <h1>Instructions for deleting a project
-  </h1>
-  <ul>
-    <div>Download below file to follow the instructions</div>
-    <a [href]="sourcePath" [download]="fileName" [attr.disabled]="dwld.busy" #dwld="wmDownload">
-      Download Instructions
-    </a>
-  </ul>
-</body>
+<h1>Instructions for deleting a project</h1>
+<ul>
+  <div>Download below file to follow the instructions</div>
+  <a
+    [href]="sourcePath"
+    [download]="fileName"
+    [attr.disabled]="dwld.busy"
+    #dwld="wmDownload"
+  >
+    Download Instructions
+  </a>
+</ul>
 <div>List of Running Projects</div>
 <div class="container">
   <table class="table table-bordered mt-3">
     <thead class="thead-light">
       <tr>
         <th>Sr.No</th>
-        <th>Name</th>
+        <th>
+          Name
+          <button
+            class="btn btn-default"
+            (click)="changeOrder()"
+            data-e2e="button-sort"
+          >
+            <span class="icon" *ngIf="order === 'NONE'">
+              <span class="icon">
+                <i class="fas fa-sort sort-button"></i>
+              </span>
+            </span>
+            <span class="icon" *ngIf="order === 'DESC'">
+              <span class="icon">
+                <i class="fas fa-sort-up sort-button"></i>
+              </span>
+            </span>
+            <span class="icon" *ngIf="order === 'ASC'">
+              <span class="icon">
+                <span>
+                  <i class="fas fa-sort-down sort-button"></i>
+                </span>
+              </span>
+            </span>
+          </button>
+          <!-- <button (click)="changeOrder()">
+            <i
+              [ngClass]="
+                order === 'none'
+                  ? 'fas fa-sort sort-button'
+                  : 'fas fa-sort sort-down'
+              "
+            ></i>
+          </button> -->
+        </th>
         <th>Delete Project</th>
         <th>Modify Project</th>
       </tr>
     </thead>
     <tbody>
-     
       <tr *ngFor="let item of row; let i = index">
         <td>{{ i + 1 }}</td>
         <td>{{ item.Name }}</td>
         <td>
-          <button (click)="deleteRow(i)" class="btn btn-success">
+          <button
+            (click)="deleteRow(i)"
+            class="btn btn-success"
+            [disabled]="item.isRemoved"
+          >
             Remove Project
           </button>
         </td>
         <td>
-          <button (click)="editRow()" class="btn btn-success">
+          <button
+            (click)="editRow()"
+            class="btn btn-success"
+            [disabled]="item.isEdited"
+          >
             Edit Project
           </button>
         </td>
@@ -64,9 +81,6 @@
     </tbody>
   </table>
 </div>
-
-</html>
-
 
 <!--h1 class="page_heading">Instructions for Deleting Project</h1>
 <ul>
