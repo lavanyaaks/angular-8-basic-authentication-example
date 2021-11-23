@@ -19,21 +19,22 @@ export class DeployComponent implements OnInit {
   order = "NONE";
   httpParam = new HttpParams();
   sortList: Map<string, string> = new Map();
+  version = ["1.0", "2.0", "3.0"];
+  selectedVersion = "--SelectVersion--";
+  selectedProjectArray = [];
+  projectName;
   row = [
     {
+      id: 1,
       Name: "2DACE2",
-      isRemoved: true,
-      isEdited: true,
     },
     {
+      id: 2,
       Name: "2DACE",
-      isRemoved: false,
-      isEdited: true,
     },
     {
+      id: 3,
       Name: "2DACE1",
-      isRemoved: true,
-      isEdited: false,
     },
   ];
   constructor(
@@ -51,37 +52,31 @@ export class DeployComponent implements OnInit {
     if (this.order === "ASC") {
       this.row = [
         {
+          id: 1,
           Name: "2DACE",
-          isRemoved: false,
-          isEdited: true,
         },
         {
+          id: 2,
           Name: "2DACE1",
-          isRemoved: true,
-          isEdited: false,
         },
         {
+          id: 3,
           Name: "2DACE2",
-          isRemoved: true,
-          isEdited: true,
         },
       ];
     } else if (this.order === "DESC") {
       this.row = [
         {
+          id: 1,
           Name: "2DACE2",
-          isRemoved: true,
-          isEdited: true,
         },
         {
+          id: 2,
           Name: "2DACE1",
-          isRemoved: true,
-          isEdited: true,
         },
         {
+          id: 3,
           Name: "2DACE",
-          isRemoved: false,
-          isEdited: false,
         },
       ];
     }
@@ -124,5 +119,16 @@ export class DeployComponent implements OnInit {
     }
     this.sortList.set("name", this.order);
     this.loadData();
+  }
+  getVersion(value, name) {
+    this.selectedVersion = value;
+    if (!this.selectedProjectArray.includes(value)) {
+      this.selectedProjectArray.push(value);
+    }
+    const noSelected = name.split('-');
+    if (noSelected[0] === 'none') {
+     const projectIndex = this.selectedProjectArray.indexOf(+noSelected[1]);
+     this.selectedProjectArray.splice(projectIndex, 1);
+    }
   }
 }

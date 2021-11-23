@@ -51,33 +51,46 @@
             ></i>
           </button> -->
         </th>
+        <th>Select Version</th>
         <th>Delete Project</th>
         <th>Modify Project</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of row; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ item.Name }}</td>
-        <td>
-          <button
-            (click)="deleteRow(i)"
-            class="btn btn-success"
-            [disabled]="item.isRemoved"
-          >
-            Remove Project
-          </button>
-        </td>
-        <td>
-          <button
-            (click)="editRow()"
-            class="btn btn-success"
-            [disabled]="item.isEdited"
-          >
-            Edit Project
-          </button>
-        </td>
-      </tr>
+      <ng-container *ngFor="let item of row; let i = index">
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.Name }}</td>
+          <td>
+            <select (change)="getVersion(item.id, $event.target.value)">
+              <option value = "none-{{item.id}}">--SelectVersion--</option>
+              <option
+                [value]="version"
+                *ngFor="let version of version; let i = index"
+              >
+                {{ version }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <button
+              (click)="deleteRow(i)"
+              class="btn btn-success"
+              [disabled]="!selectedProjectArray.includes(item.id)"
+            >
+              Remove Project
+            </button>
+          </td>
+          <td>
+            <button
+              (click)="editRow()"
+              class="btn btn-success"
+            >
+              Edit Project
+            </button>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
 </div>
