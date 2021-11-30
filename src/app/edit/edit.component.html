@@ -1,6 +1,6 @@
 <div class="col-md-6 offset-md-3 mt-5">
   <div class="card">
-    <h4 class="card-header">Edit Project Details</h4>   
+    <h4 class="card-header">Edit Project Details</h4>
     <div class="card-body">
       <form [formGroup]="editProject" (ngSubmit)="onSubmit()">
         <div class="form-group">
@@ -16,18 +16,68 @@
           <input type="text" formControlName="funcId" class="form-control" />
         </div>
         <div class="form-group">
+          <label>Namespace</label>
+          <input type="text" formControlName="namespace" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Containers</label>
+          <!--input type="text" formControlName="container" class="form-control" /-->
+          <select  [(ngModel)]="myDropDown" class ="form-control" (change)="changeVal($event)" formControlName="container">
+            <option [ngValue]="undefined" disabled selected>Choose from List of container images</option>
+            <option *ngFor="let value of Value" [ngValue]="value">
+              {{ value }}
+            </option>
+          </select>
+          <input value="{{myDropDown}}" type="text" formControlName="image" class="form-control"> 
+        </div>
+        <div class="form-group">
+          <label>Resources</label>
+          <!--input type="text" formControlName="container" class="form-control" /-->
+          <select  [(ngModel)]="resourceList" class ="form-control" (change)="changeRequest($event)" formControlName="resources">
+            <option [ngValue]="undefined" disabled selected>Choose from list of request</option>
+            <option *ngFor="let i of resourceVal" [ngValue]="i">
+              {{ i }}
+            </option>
+          </select>
+          <input value="{{resourceList}}" type="text" formControlName="request" class="form-control"> 
+        </div>
+        <div class="form-group">
           <label>Version</label>
           <input type="text" formControlName="version" class="form-control" />
         </div>
         <div class="form-group">
-            <label>Namespace</label>
-            <input type="text" formControlName="namespace" class="form-control" />
-          </div>
+          <label>max-instances</label>
+          <input type="text" formControlName="mxinstances" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>min-instances</label>
+          <input type="text" formControlName="mninstances" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label>Volume</label>
+          <!--input type="text" formControlName="container" class="form-control" /-->
+          <select  [(ngModel)]="networkList" class ="form-control" (change)="changeVolume($event)" formControlName="volume">
+            <option [ngValue]="undefined" disabled selected>List of network storage</option>
+            <option *ngFor="let i of networkListVal" [ngValue]="i">
+              {{ i }}
+            </option>
+          </select>
+          <input value="{{networkList}}" type="text" class="form-control"> 
+        </div>
+        <div class="form-group">
+          <label>target-client</label>
+          <input type="text" formControlName="targetclient" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>blocking-operation</label>
+          <select class="custom-select" (change)="changeOperation($event)" formControlName="blckop">
+            <option value="">choose from list</option>
+            <option *ngFor="let i of oprList" [ngValue]="i">{{i}}</option>
+          </select>
+        </div>
         <button [disabled]="loading" class="btn btn-primary">
-          <span
-            *ngIf="loading"
-            class="spinner-border spinner-border-sm mr-1"
-          ></span>
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Save
         </button>
       </form>

@@ -108,6 +108,12 @@ export class DeployComponent implements OnInit {
     this.router.navigate(navigationDetails);
   }
 
+  releaseRow() {
+    // API CALL WITH PROJECT NAME
+    const navigationDetails: string[] = ["/edit"];
+    this.router.navigate(navigationDetails);
+  }
+
   handleFileInput(files) {
     this.uploadFiles = files;
   }

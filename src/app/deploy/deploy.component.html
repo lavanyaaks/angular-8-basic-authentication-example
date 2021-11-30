@@ -1,12 +1,7 @@
-<h1>Instructions for deleting a project</h1>
+<h1>Instructions for deleting Application</h1>
 <ul>
   <div>Download below file to follow the instructions</div>
-  <a
-    [href]="sourcePath"
-    [download]="fileName"
-    [attr.disabled]="dwld.busy"
-    #dwld="wmDownload"
-  >
+  <a [href]="sourcePath" [download]="fileName" [attr.disabled]="dwld.busy" #dwld="wmDownload">
     Download Instructions
   </a>
 </ul>
@@ -17,12 +12,8 @@
       <tr>
         <th>Sr.No</th>
         <th>
-          Name
-          <button
-            class="btn btn-default"
-            (click)="changeOrder()"
-            data-e2e="button-sort"
-          >
+          Application Name
+          <button class="btn btn-default" (click)="changeOrder()" data-e2e="button-sort">
             <span class="icon" *ngIf="order === 'NONE'">
               <span class="icon">
                 <i class="fas fa-sort sort-button"></i>
@@ -52,8 +43,9 @@
           </button> -->
         </th>
         <th>Select Version</th>
-        <th>Delete Project</th>
-        <th>Modify Project</th>
+        <th>Delete Application</th>
+        <th>Modify Application</th>
+        <th>Release Application</th>
       </tr>
     </thead>
     <tbody>
@@ -63,30 +55,25 @@
           <td>{{ item.Name }}</td>
           <td>
             <select (change)="getVersion(item.id, $event.target.value)">
-              <option value = "none-{{item.id}}">--SelectVersion--</option>
-              <option
-                [value]="version"
-                *ngFor="let version of version; let i = index"
-              >
+              <option value="none-{{item.id}}">--SelectVersion--</option>
+              <option [value]="version" *ngFor="let version of version; let i = index">
                 {{ version }}
               </option>
             </select>
           </td>
           <td>
-            <button
-              (click)="deleteRow(i)"
-              class="btn btn-success"
-              [disabled]="!selectedProjectArray.includes(item.id)"
-            >
-              Remove Project
+            <button (click)="deleteRow(i)" class="btn btn-success" [disabled]="!selectedProjectArray.includes(item.id)">
+              Remove Application
             </button>
           </td>
           <td>
-            <button
-              (click)="editRow()"
-              class="btn btn-success"
-            >
-              Edit Project
+            <button (click)="editRow()" class="btn btn-success" [disabled]="!selectedProjectArray.includes(item.id)">
+              Edit Application
+            </button>
+          </td>
+          <td>
+            <button (click)="releaseRow()" class="btn btn-success" [disabled]="!selectedProjectArray.includes(item.id)">
+              Release Application
             </button>
           </td>
         </tr>
@@ -94,37 +81,3 @@
     </tbody>
   </table>
 </div>
-
-<!--h1 class="page_heading">Instructions for Deleting Project</h1>
-<ul>
-  <li>Instructions for deleting project</li>
-  <li>List of running projects</li>
-</ul>
-<div class="container">
-  <table class="table table-bordered mt-3">
-    <thead class="thead-light">
-      <tr>
-        <th>Sr.No</th>
-        <th>Name</th>
-        <th>Delete Project</th>
-        <th>Modify Project</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of row; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ item.Name }}</td>
-        <td>
-          <button (click)="deleteRow(i)" class="btn btn-success">
-            Remove Project
-          </button>
-        </td>
-        <td>
-            <button (click)="editRow()" class="btn btn-success">
-              Edit Project
-            </button>
-          </td>
-      </tr>
-    </tbody>
-  </table>
-</div-->
