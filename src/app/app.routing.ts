@@ -14,7 +14,7 @@ const routes: Routes = [
     { path: 'instruction',component: CreateComponent},
     { path: 'delete',component: DeployComponent},
     { path: 'create',component:CreateNewProjectComponent},
-    { path: 'edit',component :EditComponent},
+    { path: 'edit/:id',component :EditComponent},
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

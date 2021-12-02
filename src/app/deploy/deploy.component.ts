@@ -102,10 +102,11 @@ export class DeployComponent implements OnInit {
     }
   }
 
-  editRow() {
+  editRow(itemId) {
     // API CALL WITH PROJECT NAME
-    const navigationDetails: string[] = ["/edit"];
-    this.router.navigate(navigationDetails);
+    //const navigationDetails: string[] = ["/edit"];
+    //this.router.navigate(navigationDetails);
+    this.router.navigate(['edit', itemId]);
   }
 
   releaseRow() {

@@ -67,7 +67,7 @@
             </button>
           </td>
           <td>
-            <button (click)="editRow()" class="btn btn-success" [disabled]="!selectedProjectArray.includes(item.id)">
+            <button (click)="editRow(item.id)" class="btn btn-success" [disabled]="!selectedProjectArray.includes(item.id)">
               Edit Application
             </button>
           </td>
