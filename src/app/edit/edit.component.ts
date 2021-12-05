@@ -18,34 +18,27 @@ export class EditComponent implements OnInit {
   myDropDown: string;
   resourceList: string;
   networkList: string;
-editUrl;
-itemId;
-containerValue = '';
-resourcesValue = '';
-volumeValue = '';
+  editUrl;
+  itemId;
+  containerValue = "";
+  resourcesValue = "";
+  volumeValue = "";
+  resourceArray = [];
   // Container Names
   Value: any = ["image1", "image2"];
   //Resources Names
   resourceVal: any = ["cpu", "memory", "gpu"];
-
   // Network List value
   networkListVal: any = ["path1", "path2"];
 
   // Blocking operation List
   oprList: any = ["true", "false"];
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute) {
-    // this.editProject = new FormGroup({
-    //   name: new FormControl('2DACE', [
-    //     Validators.required,
-    //   ]),
-    //   funcId: new FormControl('12', [
-    //     Validators.required,
-    //     Validators.pattern(
-    //               /^[A-Za-z]{1,16}([ ]?[a-zA-Z]{0,16})([ ]?[a-zA-Z]{0,16})$/
-    //             ),
-    //   ]),
-    // });
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.editProject = this.formBuilder.group({
       name: ["2DACE", Validators.required],
       funcName: ["Deploy", Validators.required],
@@ -73,15 +66,15 @@ volumeValue = '';
   }
 
   ngOnInit() {
-  this.route.paramMap.subscribe(params => {
-    this.itemId = params.get('id');
-    if (this.itemId) {
-      this.editProject.controls['name'].disable();
-      this.editProject.controls['funcName'].disable();
-      this.editProject.controls['funcId'].disable();
-      this.editProject.controls['namespace'].disable();
-    }
-  });
+    this.route.paramMap.subscribe((params) => {
+      this.itemId = params.get("id");
+      if (this.itemId) {
+        this.editProject.controls["name"].disable();
+        this.editProject.controls["funcName"].disable();
+        this.editProject.controls["funcId"].disable();
+        this.editProject.controls["namespace"].disable();
+      }
+    });
   }
 
   changeVal(e) {
@@ -92,6 +85,12 @@ volumeValue = '';
   }
 
   changeRequest(e) {
+    if (!this.resourceArray.includes(e.target.value)) {
+      setTimeout(() => {
+        this.resourceArray.push(e.target.value);
+      }, 0);
+     
+    }
     this.resourcesValue = e.target.value;
     this.resources.setValue(e.target.value, {
       onlySelf: true,
