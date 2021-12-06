@@ -4,6 +4,7 @@ import {
   FormControl,
   Validators,
   FormBuilder,
+  FormArray,
 } from "@angular/forms";
 import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
 
@@ -39,29 +40,26 @@ export class EditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.editProject = this.formBuilder.group({
-      name: ["2DACE", Validators.required],
-      funcName: ["Deploy", Validators.required],
-      funcId: [
-        "12",
-        [
-          Validators.required,
-          Validators.pattern(
-            /^[A-Za-z]{1,16}([ ]?[a-zA-Z]{0,16})([ ]?[a-zA-Z]{0,16})$/
-          ),
-        ],
-      ],
-      version: [1.1, Validators.required],
-      namespace: ["kube", Validators.required],
-      container: ["", [Validators.required]],
-      image: ["", [Validators.required]],
-      resources: ["", [Validators.required]],
-      request: ["", [Validators.required]],
-      mxinstances: ["", [Validators.required]],
-      mninstances: ["", [Validators.required]],
-      targetclient: ["", [Validators.required]],
-      blckop: ["", [Validators.required]],
-      volume: ["", [Validators.required]],
+    this.editProject = new FormGroup({
+      name: new FormControl("2DACE", [Validators.required]),
+      funcName: new FormControl("Deploy", Validators.required),
+      funcId: new FormControl("12", [
+        Validators.required,
+        Validators.pattern(
+          /^[A-Za-z]{1,16}([ ]?[a-zA-Z]{0,16})([ ]?[a-zA-Z]{0,16})$/
+        ),
+      ]),
+      version: new FormControl(1.1, Validators.required),
+      namespace: new FormControl("kube", Validators.required),
+      container: new FormControl("", [Validators.required]),
+      image: new FormControl("", [Validators.required]),
+      resources: new FormControl("", [Validators.required]),
+      requests: new FormArray([]),
+      mxinstances: new FormControl("", [Validators.required]),
+      mninstances: new FormControl("", [Validators.required]),
+      targetclient: new FormControl("", [Validators.required]),
+      blckop: new FormControl("", [Validators.required]),
+      volume: new FormControl("", [Validators.required]),
     });
   }
 
@@ -88,8 +86,9 @@ export class EditComponent implements OnInit {
     if (!this.resourceArray.includes(e.target.value)) {
       setTimeout(() => {
         this.resourceArray.push(e.target.value);
-      }, 0);
-     
+        const control = new FormControl(e.target.value, [Validators.required]);
+        (<FormArray>this.editProject.get('requests')).push(control);
+      }, 100);
     }
     this.resourcesValue = e.target.value;
     this.resources.setValue(e.target.value, {
@@ -125,7 +124,9 @@ export class EditComponent implements OnInit {
   get volume() {
     return this.editProject.get("volume");
   }
-
+  get requests(): FormArray {
+    return this.editProject.get("requests") as FormArray;
+  }
   onSubmit() {
     console.log(this.editProject.value);
   }
