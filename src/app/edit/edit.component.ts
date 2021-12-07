@@ -24,17 +24,17 @@ export class EditComponent implements OnInit {
   containerValue = "";
   resourcesValue = "";
   volumeValue = "";
-  resourceArray = [];
+  resourceArray = ["a"];
   // Container Names
   Value: any = ["image1", "image2"];
   //Resources Names
   resourceVal: any = ["cpu", "memory", "gpu"];
   // Network List value
   networkListVal: any = ["path1", "path2"];
-
+  deleteLabel;
   // Blocking operation List
   oprList: any = ["true", "false"];
-
+  selectedrequests = [];
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -54,12 +54,17 @@ export class EditComponent implements OnInit {
       container: new FormControl("", [Validators.required]),
       image: new FormControl("", [Validators.required]),
       resources: new FormControl("", [Validators.required]),
+      //request: ["", [Validators.required]],
       requests: new FormArray([]),
       mxinstances: new FormControl("", [Validators.required]),
       mninstances: new FormControl("", [Validators.required]),
       targetclient: new FormControl("", [Validators.required]),
       blckop: new FormControl("", [Validators.required]),
       volume: new FormControl("", [Validators.required]),
+    });
+
+    this.editProject.get("requests").valueChanges.subscribe((item) => {
+      this.selectedrequests = item;
     });
   }
 
@@ -83,13 +88,13 @@ export class EditComponent implements OnInit {
   }
 
   changeRequest(e) {
-    if (!this.resourceArray.includes(e.target.value)) {
-      setTimeout(() => {
-        this.resourceArray.push(e.target.value);
+    setTimeout(() => {
+      if (!this.selectedrequests.includes(e.target.value)) {
         const control = new FormControl(e.target.value, [Validators.required]);
-        (<FormArray>this.editProject.get('requests')).push(control);
-      }, 100);
-    }
+        (<FormArray>this.editProject.get("requests")).push(control);
+      }
+    }, 0);
+
     this.resourcesValue = e.target.value;
     this.resources.setValue(e.target.value, {
       onlySelf: true,
@@ -127,7 +132,17 @@ export class EditComponent implements OnInit {
   get requests(): FormArray {
     return this.editProject.get("requests") as FormArray;
   }
+  OnDelete(i: number, request): void {
+    (<FormArray>this.editProject.get("requests")).removeAt(i);
+    this.requests.markAsDirty();
+    this.resources.setValue("undefined");
+    setTimeout(() => {
+      if (this.selectedrequests.length > 1) {
+        this.deleteLabel = i;
+      }
+    }, 0);
+  }
   onSubmit() {
-    console.log(this.editProject.value);
+    //console.log(this.editProject.value);
   }
 }
