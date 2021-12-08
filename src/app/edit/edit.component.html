@@ -65,7 +65,7 @@
             *ngFor="let request of requests.controls; let i = index"
           >
           <br />
-          <div><label for="" [hidden]="i===deleteLabel">{{editProject.get("requests").value[i]}}</label></div>
+          <div><label for="" [hidden]="i===deleteLabel">{{resourceVal[i]}}</label></div>
             <input
               class="custom-input"
               type="text"
