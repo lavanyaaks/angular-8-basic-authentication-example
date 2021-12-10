@@ -64,15 +64,21 @@
             class="field"
             *ngFor="let request of requests.controls; let i = index"
           >
-          <br />
-          <div><label for="" [hidden]="i===deleteLabel">{{resourceVal[i]}}</label></div>
+            <br />
+            <div>
+              <label for="">{{ labelResource[i] }}</label>
+            </div>
             <input
               class="custom-input"
               type="text"
               [formControlName]="i"
               [value]="request"
             />&nbsp;&nbsp;
-              <i class="fas fa-times" style="cursor: pointer;" (click)="OnDelete(i)"></i>
+            <i
+              class="fas fa-times"
+              style="cursor: pointer"
+              (click)="OnDelete(i)"
+            ></i>
           </ng-container>
         </div>
         <div class="form-group">

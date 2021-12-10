@@ -29,6 +29,7 @@ export class EditComponent implements OnInit {
   Value: any = ["image1", "image2"];
   //Resources Names
   resourceVal: any = ["cpu", "memory", "gpu"];
+  labelResource = [];
   // Network List value
   networkListVal: any = ["path1", "path2"];
   deleteLabel;
@@ -90,6 +91,7 @@ export class EditComponent implements OnInit {
   changeRequest(e) {
     setTimeout(() => {
       if (!this.selectedrequests.includes(e.target.value)) {
+        this.labelResource.push(e.target.value);
         const control = new FormControl(e.target.value, [Validators.required]);
         (<FormArray>this.editProject.get("requests")).push(control);
       }
@@ -133,6 +135,7 @@ export class EditComponent implements OnInit {
     return this.editProject.get("requests") as FormArray;
   }
   OnDelete(i: number, request): void {
+    this.labelResource.splice(i, 1);
     (<FormArray>this.editProject.get("requests")).removeAt(i);
     this.requests.markAsDirty();
     this.resources.setValue("undefined");
