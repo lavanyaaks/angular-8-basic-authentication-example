@@ -36,11 +36,11 @@ export class CreateNewProjectComponent implements OnInit {
   ngOnInit() {
     this.createProject = this.formBuilder.group({
       name: ["", Validators.required],
-      fname: ["", Validators.required],
-      fid: ["", Validators.required],
+     // fname: ["", Validators.required],
+      //fid: ["", Validators.required],
       nspace: ["", Validators.required],
-      version: ["", Validators.required],
-      mininstance: ["", Validators.required],
+      //version: ["", Validators.required],
+      //mininstance: ["", Validators.required],
       description: ["", Validators.required],
       projectType: ["", Validators.required],
       projectExt: ["", Validators.required],
@@ -75,12 +75,11 @@ export class CreateNewProjectComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     // stop here if form is invalid
     if (!this.createProject.valid) {
       return false;
     } else {
-      alert(JSON.stringify(this.createProject.value));
+      //alert(JSON.stringify(this.createProject.value));
     }
   }
   download() {

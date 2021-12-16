@@ -53,7 +53,7 @@
             <div *ngIf="f.projectExt.errors.required">Project Extenion is required</div>
           </div>
         </div>
-        <button  type ="submit" class="btn btn-primary" (click)="download()">
+        <button  type ="submit" class="btn btn-primary" [disabled]="!createProject.valid" (click)="download()">
           Create
         </button>
       </form>
