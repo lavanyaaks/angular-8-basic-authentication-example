@@ -22,8 +22,11 @@ export class EditComponent implements OnInit {
   editUrl;
   itemId;
   containerValue = "";
+  selectedcontainerValue='';
+  selectedResourcesValue = [];
   resourcesValue = "";
   volumeValue = "";
+  selectedvolumeValue = '';
   resourceArray = ["a"];
   // Container Names
   Value: any = ["image1", "image2"];
@@ -54,14 +57,14 @@ export class EditComponent implements OnInit {
       namespace: new FormControl("kube", Validators.required),
       container: new FormControl("", [Validators.required]),
       image: new FormControl("", [Validators.required]),
-      resources: new FormControl("", [Validators.required]),
+      resources: new FormControl(" ", [Validators.required]),
       //request: ["", [Validators.required]],
       requests: new FormArray([]),
-      mxinstances: new FormControl("", [Validators.required]),
-      mninstances: new FormControl("", [Validators.required]),
-      targetclient: new FormControl("", [Validators.required]),
-      blckop: new FormControl("", [Validators.required]),
-      volume: new FormControl("", [Validators.required]),
+      mxinstances: new FormControl(" ", [Validators.required]),
+      mninstances: new FormControl(" ", [Validators.required]),
+      targetclient: new FormControl(" ", [Validators.required]),
+      blckop: new FormControl(" ", [Validators.required]),
+      volume: new FormControl(" ", [Validators.required]),
     });
 
     this.editProject.get("requests").valueChanges.subscribe((item) => {
@@ -77,26 +80,48 @@ export class EditComponent implements OnInit {
         this.editProject.controls["funcName"].disable();
         this.editProject.controls["funcId"].disable();
         this.editProject.controls["namespace"].disable();
+        this.container.setValue('image1');
+        this.volume.setValue('path1');
+        this.container.setValue('image1');
+        this.editProject.controls["mxinstances"].patchValue('updateMax');
+        this.editProject.controls["mninstances"].patchValue('updateMin');
+        this.editProject.controls["targetclient"].patchValue('target');
+       // this.editProject.controls["mxinstances"].patchValue('updateMax');
+        //this.targetClient.setValue('update Target');
+        this.selectedcontainerValue = this.editProject.get('container').value;
+        this.selectedvolumeValue = this.editProject.get('volume').value;
+        setTimeout(() => {
+          this.labelResource = ['1: cpu', '2: memory'];
+          this.selectedrequests = ['1: cpu', '2: memory'];
+          this.selectedrequests.forEach(element => {
+          const control = new FormControl(element, [Validators.required]);
+          (<FormArray> this.editProject.get('requests')).push(control);
+        });
+      }, 0);
       }
     });
   }
 
   changeVal(e) {
     this.containerValue = e.target.value;
+    this.selectedcontainerValue = e.target.value;
+    setTimeout(() => {
     this.container.setValue(e.target.value, {
       onlySelf: true,
     });
+  }, 0);
   }
 
   changeRequest(e) {
     setTimeout(() => {
       if (!this.selectedrequests.includes(e.target.value)) {
+        console.log(this.selectedrequests);
         this.labelResource.push(e.target.value);
         const control = new FormControl(e.target.value, [Validators.required]);
         (<FormArray>this.editProject.get("requests")).push(control);
       }
+      
     }, 0);
-
     this.resourcesValue = e.target.value;
     this.resources.setValue(e.target.value, {
       onlySelf: true,
@@ -105,9 +130,11 @@ export class EditComponent implements OnInit {
 
   changeVolume(e) {
     this.volumeValue = e.target.value;
+    setTimeout(() => {
     this.volume.setValue(e.target.value, {
       onlySelf: true,
     });
+  }, 0);
   }
 
   changeOperation(e) {

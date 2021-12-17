@@ -22,10 +22,10 @@
         <div class="form-group">
           <label>Containers</label>
           <select
-            [(ngModel)]="myDropDown"
             class="form-control"
             (change)="changeVal($event)"
             formControlName="container"
+            [(ngModel)]="container.value"
           >
             <option [ngValue]="undefined" disabled selected>
               Choose from List of container images
@@ -34,9 +34,10 @@
               {{ value }}
             </option>
           </select>
+          <br>
           <input
-            *ngIf="containerValue"
-            value="{{ myDropDown }}"
+            *ngIf="selectedcontainerValue"
+            [(ngModel)]="selectedcontainerValue"
             type="text"
             formControlName="image"
             class="form-control"
@@ -106,23 +107,25 @@
           <label>Volume</label>
 
           <select
-            [(ngModel)]="networkList"
             class="form-control"
             (change)="changeVolume($event)"
             formControlName="volume"
           >
-            <option [ngValue]="undefined" disabled selected>
+            <option [value]="undefined" disabled selected>
               List of network storage
             </option>
             <option *ngFor="let i of networkListVal" [ngValue]="i">
               {{ i }}
             </option>
           </select>
+          <br>
           <input
-            *ngIf="volumeValue"
+            *ngIf="selectedvolumeValue"
             value="{{ networkList }}"
             type="text"
             class="form-control"
+            formControlName="volume"
+            [(ngModel)]="selectedvolumeValue"
           />
         </div>
         <div class="form-group">
