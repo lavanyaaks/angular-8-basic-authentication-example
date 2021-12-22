@@ -42,18 +42,22 @@
         </div>
         <div class="form-group">
           <label for="projectExt">Project Extension</label>
-          <select class="custom-select" (change)="changeExtn($event)" formControlName="projectExt"
-            [ngClass]="{ 'is-invalid': submitted && f.projectExt.errors }">
+          <select class="custom-select" #select (change)="changeExtn($event)" formControlName="projectExt"
+            [ngClass]="{ 'is-invalid': submitted && f.projectExt.errors }" [(ngModel)]="selectedvolumeValue" >
             <option value="">Select your extension type</option>
-            <option *ngFor="let extn of ideExtn" [ngValue]="extn">
+            <option *ngFor="let extn of ideExtn" [value]="extn">
               {{ extn }}
             </option>
           </select>
+          <div *ngIf="selectedvolumeValue==='Dockerfile'"> 
+            <br>
+            <input type="file" (change)="onChange($event.target.files)">
+        </div>
           <div *ngIf="submitted && f.projectExt.errors" class="invalid-feedback">
             <div *ngIf="f.projectExt.errors.required">Project Extenion is required</div>
           </div>
         </div>
-        <button  type ="submit" class="btn btn-primary" [disabled]="!createProject.valid" (click)="download()">
+        <button type="submit" class="btn btn-primary" [disabled]="!createProject.valid" (click)="download()">
           Create
         </button>
       </form>

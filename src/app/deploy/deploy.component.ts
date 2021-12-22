@@ -22,6 +22,7 @@ export class DeployComponent implements OnInit {
   version = ["1.0", "2.0", "3.0"];
   selectedVersion = "--SelectVersion--";
   selectedProjectArray = [];
+  versionDisable = true;
   projectName;
   row = [
     {
@@ -109,10 +110,9 @@ export class DeployComponent implements OnInit {
     this.router.navigate(['edit', itemId]);
   }
 
-  releaseRow() {
+  releaseRow(itemId) {
     // API CALL WITH PROJECT NAME
-    const navigationDetails: string[] = ["/edit"];
-    this.router.navigate(navigationDetails);
+    this.router.navigate(['release', itemId]);
   }
 
   handleFileInput(files) {
@@ -127,15 +127,48 @@ export class DeployComponent implements OnInit {
     this.sortList.set("name", this.order);
     this.loadData();
   }
-  getVersion(value, name) {
-    this.selectedVersion = value;
-    if (!this.selectedProjectArray.includes(value)) {
-      this.selectedProjectArray.push(value);
-    }
-    const noSelected = name.split('-');
-    if (noSelected[0] === 'none') {
-     const projectIndex = this.selectedProjectArray.indexOf(+noSelected[1]);
-     this.selectedProjectArray.splice(projectIndex, 1);
-    }
+  // getVersion(value, name) {
+  //   this.selectedVersion = value;
+  //   if (!this.selectedProjectArray.includes(value)) {
+  //     this.selectedProjectArray.push(value);
+  //   }
+  //   const noSelected = name.split('-');
+  //   if (noSelected[0] === 'none') {
+  //    const projectIndex = this.selectedProjectArray.indexOf(+noSelected[1]);
+  //    this.selectedProjectArray.splice(projectIndex, 1);
+  //   }
+  // }
+  getVersion(name){
+    this.selectedVersion = name;
+    name ? this.versionDisable = false :  this.versionDisable = true;
+  }
+  removeRow(selectedVersion){
+    //this.namspaceStr = '';
+    this.versionDisable = true;
+    this.version.splice(selectedVersion, 1);
+    console.log(selectedVersion);
+  }
+  fileContent: string = '';
+  arr: any;
+  namspaceStr: string = '';
+  convertedArr: any;
+
+  public onChange(fileList: FileList): void {
+    let file = fileList[0];
+    let fileReader: FileReader = new FileReader();
+    let self = this;
+
+    fileReader.onloadend = function (x) {
+      self.fileContent = fileReader.result as string;
+      console.log(fileReader.result.toString);
+
+      //self.fileContent.toString();
+
+      console.log(self.fileContent.match(/namespace:(.*)$/gm));
+      self.arr = self.fileContent.match(/namespace:(.*)$/gm);
+      self.namspaceStr = self.arr[0].split(':').slice(1).toString();
+      console.log(self.namspaceStr);
+    };
+    fileReader.readAsText(file);
   }
 }

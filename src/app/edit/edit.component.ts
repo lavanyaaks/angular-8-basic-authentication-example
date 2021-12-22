@@ -81,8 +81,8 @@ export class EditComponent implements OnInit {
         this.editProject.controls["funcId"].disable();
         this.editProject.controls["namespace"].disable();
         this.container.setValue('image1');
-        this.volume.setValue('path1');
-        this.container.setValue('image1');
+        this.volume.setValue('path2');
+        this.container.setValue('image2');
         this.editProject.controls["mxinstances"].patchValue('updateMax');
         this.editProject.controls["mninstances"].patchValue('updateMin');
         this.editProject.controls["targetclient"].patchValue('target');
@@ -120,7 +120,6 @@ export class EditComponent implements OnInit {
         const control = new FormControl(e.target.value, [Validators.required]);
         (<FormArray>this.editProject.get("requests")).push(control);
       }
-      
     }, 0);
     this.resourcesValue = e.target.value;
     this.resources.setValue(e.target.value, {

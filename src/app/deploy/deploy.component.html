@@ -7,40 +7,16 @@
 </ul>
 <div>List of Running Projects</div>
 <div class="container">
+<table class="mt-3"><input type="file" (change)="onChange($event.target.files)"></table>
+</div>
+<div class="container">
   <table class="table table-bordered mt-3">
     <thead class="thead-light">
       <tr>
-        <th>Sr.No</th>
+        <!-- <th>File upload
+        </th> -->
         <th>
           Application Name
-          <button class="btn btn-default" (click)="changeOrder()" data-e2e="button-sort">
-            <span class="icon" *ngIf="order === 'NONE'">
-              <span class="icon">
-                <i class="fas fa-sort sort-button"></i>
-              </span>
-            </span>
-            <span class="icon" *ngIf="order === 'DESC'">
-              <span class="icon">
-                <i class="fas fa-sort-up sort-button"></i>
-              </span>
-            </span>
-            <span class="icon" *ngIf="order === 'ASC'">
-              <span class="icon">
-                <span>
-                  <i class="fas fa-sort-down sort-button"></i>
-                </span>
-              </span>
-            </span>
-          </button>
-          <!-- <button (click)="changeOrder()">
-            <i
-              [ngClass]="
-                order === 'none'
-                  ? 'fas fa-sort sort-button'
-                  : 'fas fa-sort sort-down'
-              "
-            ></i>
-          </button> -->
         </th>
         <th>Select Version</th>
         <th>Delete Application</th>
@@ -49,35 +25,35 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let item of row; let i = index">
+      <!--ng-container *ngFor="let item of row; let i = index"-->
         <tr>
-          <td>{{ i + 1 }}</td>
-          <td>{{ item.Name }}</td>
+          <!-- <td><input type="file" (change)="onChange($event.target.files)"></td> -->
+          <td>{{ namspaceStr}}</td>
           <td>
-            <select (change)="getVersion(item.id, $event.target.value)">
-              <option value="none-{{item.id}}">--SelectVersion--</option>
-              <option [value]="version" *ngFor="let version of version; let i = index">
+            <select (change)="getVersion($event.target.value)">
+              <option value="">--SelectVersion--</option>
+              <option [value]="i" *ngFor="let version of version; let i = index">
                 {{ version }}
               </option>
             </select>
           </td>
           <td>
-            <button (click)="deleteRow(i)" class="btn btn-success" [disabled]="!selectedProjectArray.includes(item.id)">
+            <button class="btn btn-success" [disabled]="versionDisable" (click)="removeRow(selectedVersion)">
               Remove Application
             </button>
           </td>
           <td>
-            <button (click)="editRow(item.id)" class="btn btn-success" [disabled]="!selectedProjectArray.includes(item.id)">
+            <button class="btn btn-success" [disabled]="versionDisable">
               Edit Application
             </button>
           </td>
           <td>
-            <button (click)="releaseRow()" class="btn btn-success" [disabled]="!selectedProjectArray.includes(item.id)">
+            <button class="btn btn-success" [disabled]="versionDisable">
               Release Application
             </button>
           </td>
         </tr>
-      </ng-container>
+      <!--/ng-container-->
     </tbody>
   </table>
 </div>
