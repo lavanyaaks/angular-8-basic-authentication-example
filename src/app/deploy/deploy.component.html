@@ -38,17 +38,17 @@
             </select>
           </td>
           <td>
-            <button class="btn btn-success" [disabled]="versionDisable" (click)="removeRow(selectedVersion)">
+            <button class="btn btn-success" [disabled]="versionDisable || namspaceStr===''" (click)="removeRow(selectedVersion)">
               Remove Application
             </button>
           </td>
           <td>
-            <button class="btn btn-success" [disabled]="versionDisable">
+            <button (click)="editRow(namspaceStr)" class="btn btn-success" [disabled]="versionDisable || namspaceStr===''">
               Edit Application
             </button>
           </td>
           <td>
-            <button class="btn btn-success" [disabled]="versionDisable">
+            <button class="btn btn-success" [disabled]="versionDisable || namspaceStr===''">
               Release Application
             </button>
           </td>

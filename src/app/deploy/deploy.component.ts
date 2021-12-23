@@ -23,7 +23,16 @@ export class DeployComponent implements OnInit {
   selectedVersion = "--SelectVersion--";
   selectedProjectArray = [];
   versionDisable = true;
+  appName = '';
   projectName;
+
+
+  fileContent: string = '';
+  arr: any;
+  namspaceStr = '';
+  convertedArr: any;
+
+  
   row = [
     {
       id: 1,
@@ -104,6 +113,7 @@ export class DeployComponent implements OnInit {
   }
 
   editRow(itemId) {
+    console.log(itemId);
     // API CALL WITH PROJECT NAME
     //const navigationDetails: string[] = ["/edit"];
     //this.router.navigate(navigationDetails);
@@ -146,12 +156,8 @@ export class DeployComponent implements OnInit {
     //this.namspaceStr = '';
     this.versionDisable = true;
     this.version.splice(selectedVersion, 1);
-    console.log(selectedVersion);
   }
-  fileContent: string = '';
-  arr: any;
-  namspaceStr: string = '';
-  convertedArr: any;
+
 
   public onChange(fileList: FileList): void {
     let file = fileList[0];
@@ -160,11 +166,11 @@ export class DeployComponent implements OnInit {
 
     fileReader.onloadend = function (x) {
       self.fileContent = fileReader.result as string;
-      console.log(fileReader.result.toString);
+      //console.log(fileReader.result.toString);
 
       //self.fileContent.toString();
 
-      console.log(self.fileContent.match(/namespace:(.*)$/gm));
+      //console.log(self.fileContent.match(/namespace:(.*)$/gm));
       self.arr = self.fileContent.match(/namespace:(.*)$/gm);
       self.namspaceStr = self.arr[0].split(':').slice(1).toString();
       console.log(self.namspaceStr);
